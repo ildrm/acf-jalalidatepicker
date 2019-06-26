@@ -1,5 +1,3 @@
-# ACF FIELD_LABEL Field
+# ACF Jalali Date Picker Field
 
-Welcome to the Advanced Custom Fields FIELD_LABEL repository on Github.
-
-EXTENDED_DESCRIPTION
+Welcome to the Advanced Custom Fields Jalali Date Picker repository on Github.
