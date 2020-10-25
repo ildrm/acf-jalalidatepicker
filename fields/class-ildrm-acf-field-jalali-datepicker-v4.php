@@ -5,10 +5,10 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 
 // check if class already exists
-if( !class_exists('NAMESPACE_acf_field_FIELD_NAME') ) :
+if( !class_exists('ildrm_acf_field_jalali_datepicker') ) :
 
 
-class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
+class ildrm_acf_field_jalali_datepicker extends acf_field {
 	
 	// vars
 	var $settings, // will hold info such as dir / path
@@ -27,9 +27,9 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 	function __construct( $settings )
 	{
 		// vars
-		$this->name = 'FIELD_NAME';
-		$this->label = __('FIELD_LABEL');
-		$this->category = __("Basic",'TEXTDOMAIN'); // Basic, Content, Choice, etc
+		$this->name = 'jalali_datepicker';
+		$this->label = __('Jalali Datepicker');
+		$this->category = __("Basic",'acf-jalali-datepicker'); // Basic, Content, Choice, etc
 		$this->defaults = array(
 			// add default here to merge into your field. 
 			// This makes life easy when creating the field options as you don't need to use any if( isset('') ) logic. eg:
@@ -75,8 +75,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 		?>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
-		<label><?php _e("Preview Size",'TEXTDOMAIN'); ?></label>
-		<p class="description"><?php _e("Thumbnail is advised",'TEXTDOMAIN'); ?></p>
+		<label><?php _e("Preview Size",'acf-jalali-datepicker'); ?></label>
+		<p class="description"><?php _e("Thumbnail is advised",'acf-jalali-datepicker'); ?></p>
 	</td>
 	<td>
 		<?php
@@ -87,8 +87,8 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 			'value'		=>	$field['preview_size'],
 			'layout'	=>	'horizontal',
 			'choices'	=>	array(
-				'thumbnail' => __('Thumbnail', 'TEXTDOMAIN'),
-				'something_else' => __('Something Else', 'TEXTDOMAIN'),
+				'thumbnail' => __('Thumbnail', 'acf-jalali-datepicker'),
+				'something_else' => __('Something Else', 'acf-jalali-datepicker'),
 			)
 		));
 		
@@ -154,13 +154,13 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 		
 		
 		// register & include JS
-		wp_register_script('TEXTDOMAIN', "{$url}assets/js/input.js", array('acf-input'), $version);
-		wp_enqueue_script('TEXTDOMAIN');
+		wp_register_script('acf-jalali-datepicker', "{$url}assets/js/input.js", array('acf-input'), $version);
+		wp_enqueue_script('acf-jalali-datepicker');
 		
 		
 		// register & include CSS
-		wp_register_style('TEXTDOMAIN', "{$url}assets/css/input.css", array('acf-input'), $version);
-		wp_enqueue_style('TEXTDOMAIN');
+		wp_register_style('acf-jalali-datepicker', "{$url}assets/css/input.css", array('acf-input'), $version);
+		wp_enqueue_style('acf-jalali-datepicker');
 		
 	}
 	
@@ -373,7 +373,7 @@ class NAMESPACE_acf_field_FIELD_NAME extends acf_field {
 
 
 // initialize
-new NAMESPACE_acf_field_FIELD_NAME( $this->settings );
+new ildrm_acf_field_jalali_datepicker( $this->settings );
 
 
 // class_exists check

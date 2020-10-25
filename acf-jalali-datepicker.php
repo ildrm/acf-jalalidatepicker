@@ -1,12 +1,11 @@
 <?php
 
 /*
-Plugin Name: Advanced Custom Fields: Jalali-DatePicker
-Plugin URI: PLUGIN_URL
-Description: SHORT_DESCRIPTION
+Plugin Name: Advanced Custom Fields: Jalali Datepicker
+Description: -
 Version: 1.0.0
 Author: Masoud ILDEREMI
-Author URI: ildrm.com
+Author URI: https://ildrm.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -16,9 +15,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 
 // check if class already exists
-if( !class_exists('ildrm_acf_plugin_jalalidatepicker') ) :
+if( !class_exists('ildrm_acf_plugin_jalali_datepicker') ) :
 
-class ildrm_acf_plugin_jalalidatepicker {
+class ildrm_acf_plugin_jalali_datepicker {
 	
 	// vars
 	var $settings;
@@ -74,18 +73,18 @@ class ildrm_acf_plugin_jalalidatepicker {
 		
 		
 		// load textdomain
-		load_plugin_textdomain( 'TEXTDOMAIN', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' ); 
+		load_plugin_textdomain( 'acf-jalali-datepicker', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' ); 
 		
 		
 		// include
-		include_once('fields/class-ildrm-acf-field-jalalidatepicker-v' . $version . '.php');
+		include_once('fields/class-ildrm-acf-field-jalali-datepicker-v' . $version . '.php');
 	}
 	
 }
 
 
 // initialize
-new ildrm_acf_plugin_jalalidatepicker();
+new ildrm_acf_plugin_jalali_datepicker();
 
 
 // class_exists check

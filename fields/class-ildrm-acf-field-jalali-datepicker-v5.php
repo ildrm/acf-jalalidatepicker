@@ -5,10 +5,10 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 
 // check if class already exists
-if( !class_exists('ildrm_acf_field_jalalidatepicker') ) :
+if( !class_exists('ildrm_acf_field_jalali_datepicker') ) :
 
 
-class ildrm_acf_field_jalalidatepicker extends acf_field {
+class ildrm_acf_field_jalali_datepicker extends acf_field {
 	
 	
 	/*
@@ -30,14 +30,14 @@ class ildrm_acf_field_jalalidatepicker extends acf_field {
 		*  name (string) Single word, no spaces. Underscores allowed
 		*/
 		
-		$this->name = 'jalalidatepicker';
+		$this->name = 'jalali_datepicker';
 		
 		
 		/*
 		*  label (string) Multiple words, can include spaces, visible when selecting a field type
 		*/
 		
-		$this->label = __('Jalali-DatePicker', 'TEXTDOMAIN');
+		$this->label = __('Jalali Datepicker', 'acf-jalali-datepicker');
 		
 		
 		/*
@@ -52,18 +52,17 @@ class ildrm_acf_field_jalalidatepicker extends acf_field {
 		*/
 		
 		$this->defaults = array(
-			//'fromat-date'	=> 'YYYY/MM/DD',
-			'config-datepicker' => "",
+			'font_size'	=> 14,
 		);
 		
 		
 		/*
 		*  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
-		*  var message = acf._e('jalalidatepicker', 'error');
+		*  var message = acf._e('jalali_datepicker', 'error');
 		*/
 		
 		$this->l10n = array(
-			'error'	=> __('Error! Please enter a higher value', 'TEXTDOMAIN'),
+			'error'	=> __('Error! Please enter a higher value', 'acf-jalali-datepicker'),
 		);
 		
 		
@@ -105,20 +104,12 @@ class ildrm_acf_field_jalalidatepicker extends acf_field {
 		*  Please note that you must also have a matching $defaults value for the field name (font_size)
 		*/
 		
-		/*acf_render_field_setting( $field, array(
-			'label'			=> __('Format','TEXTDOMAIN'),
-			'instructions'	=> __('Customise date format','TEXTDOMAIN'),
-			'type'			=> 'text',
-			'name'			=> 'fromat-date',
-			//'prepend'		=> 'px',
-		));*/
-
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Config','TEXTDOMAIN'),
-			'instructions'	=> __('Customise datepicker config','TEXTDOMAIN'),
-			'type'			=> 'text',
-			'name'			=> 'config-datepicker',
-			//'prepend'		=> 'px',
+			'label'			=> __('Font Size','acf-jalali-datepicker'),
+			'instructions'	=> __('Customise the input font size','acf-jalali-datepicker'),
+			'type'			=> 'number',
+			'name'			=> 'font_size',
+			'prepend'		=> 'px',
 		));
 
 	}
@@ -147,11 +138,10 @@ class ildrm_acf_field_jalalidatepicker extends acf_field {
 		*  Review the data of $field.
 		*  This will show what data is available
 		*/
-
-		$id = (isset($field['wrapper']['id']) and !empty($field['wrapper']['id'])) ? $field['wrapper']['id'] : null;
-		$cls = (isset($field['wrapper']['class']) and !empty($field['wrapper']['class'])) ? $field['wrapper']['class'] : null;
-
-		$sel = (isset($id) ? "#$id" : (isset($cls) ? ".$cls" : ''));
+		
+		echo '<pre>';
+			print_r( $field );
+		echo '</pre>';
 		
 		
 		/*
@@ -159,15 +149,13 @@ class ildrm_acf_field_jalalidatepicker extends acf_field {
 		*/
 		
 		?>
-
 		<script type="text/javascript">
-			jQuery(document).ready(function ($) {
-				$("input[field=<?=$field['key']?>").persianDatepicker(<?=$field['config-datepicker']?>);
+			jQuery(document).ready(function () {
+				jQuery("input[field=<?=$field['key']?>").persianDatepicker(<?=$field['config-datepicker']?>);
+				jQuery("input[field=<?=$field['key']?>").val('<?php echo esc_attr($field['value']) ?>');
 			});
 		</script>
-
-		<input type="text" field="<?=$field['key']?>" class="<?=$field['wrapper']['class']?>" id="<?=$field['wrapper']['id']?>" />
-
+		<input field="<?=$field['key']?>" type="text" name="<?php echo esc_attr($field['name']) ?>" style="font-size:<?php echo $field['font_size'] ?>px;" />
 		<?php
 	}
 	
@@ -194,8 +182,6 @@ class ildrm_acf_field_jalalidatepicker extends acf_field {
 		
 		
 		// register & include JS
-		// wp_register_script('jquery-min', "{$url}assets/js/jquery.min.js", array('acf-input'), $version);
-		// wp_enqueue_script('jquery-min');
 		wp_register_script('persian-date-min', "{$url}assets/js/persian.date.min.js", array('acf-input'), $version);
 		wp_enqueue_script('persian-date-min');
 		wp_register_script('persian-datepicker-min', "{$url}assets/js/persian.datepicker.min.js", array('acf-input'), $version);
@@ -461,7 +447,7 @@ class ildrm_acf_field_jalalidatepicker extends acf_field {
 		// Advanced usage
 		if( $value < $field['custom_minimum_setting'] )
 		{
-			$valid = __('The value is too little!','TEXTDOMAIN'),
+			$valid = __('The value is too little!','acf-jalali-datepicker'),
 		}
 		
 		
@@ -575,7 +561,7 @@ class ildrm_acf_field_jalalidatepicker extends acf_field {
 
 
 // initialize
-new ildrm_acf_field_jalalidatepicker( $this->settings );
+new ildrm_acf_field_jalali_datepicker( $this->settings );
 
 
 // class_exists check
