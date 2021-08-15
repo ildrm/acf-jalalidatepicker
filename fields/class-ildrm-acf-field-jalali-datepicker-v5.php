@@ -139,24 +139,50 @@ class ildrm_acf_field_jalali_datepicker extends acf_field {
 		*  This will show what data is available
 		*/
 		
-		echo '<pre>';
-			print_r( $field );
-		echo '</pre>';
+		// echo '<pre>';
+		// 	print_r( $field );
+		// echo '</pre>';
 		
 		
 		/*
 		*  Create a simple text input using the 'font_size' setting.
 		*/
-		
+		if ($field['type']=='jalali_datepicker') {
 		?>
 		<script type="text/javascript">
-			jQuery(document).ready(function () {
-				jQuery("input[field=<?=$field['key']?>").persianDatepicker(<?=$field['config-datepicker']?>);
-				jQuery("input[field=<?=$field['key']?>").val('<?php echo esc_attr($field['value']) ?>');
-			});
+		jQuery(document).ready(function(){
+			//jQuery("input[name='<?=$field['name']?>'").persianDatepicker(<?=@$field['config-datepicker']?>);
+			
+			if (jQuery("input[field='<?=$field['key']?>'").parents('.acf-field-repeater').data('key')) {
+				jQuery("input[field='<?=$field['key']?>'").parents('.acf-field-repeater').find('.acf-actions').ready(function(){
+					jQuery.each(jQuery("input[field='<?=$field['key']?>'").parents('.acf-field-repeater').find('.acf-table input.pwt-datepicker-input-element:visible'),function(i,v){
+						if (jQuery(this).attr('name')=='<?=$field['name']?>') {
+							jQuery(this).persianDatepicker();
+							jQuery(this).val('<?=$field['value']?>');
+							jQuery(this).data('value','<?=$field['value']?>');
+						}
+					});
+					jQuery("input[field='<?=$field['key']?>'").parents('.acf-field-repeater').find('.acf-actions').find('a').on('click',function(e){
+						jQuery("input[field='<?=$field['key']?>'").parents('.acf-field-repeater').find('.acf-table').ready(function(){
+							jQuery.each(jQuery("input[field='<?=$field['key']?>'").parents('.acf-field-repeater').find('.acf-table input.pwt-datepicker-input-element:visible'),function(i,v){
+								if (jQuery(this).data('value')){
+								} else {
+									//acfcloneindex
+									jQuery(this).persianDatepicker();
+								}
+							});
+						});
+					});
+				});
+			} else {
+				jQuery("input[name='<?=$field['name']?>'").persianDatepicker();
+				jQuery("input[name='<?=$field['name']?>'").val('<?=esc_attr($field['value']) ?>');
+			}
+		});
 		</script>
-		<input field="<?=$field['key']?>" type="text" name="<?php echo esc_attr($field['name']) ?>" style="font-size:<?php echo $field['font_size'] ?>px;" />
+		<input class="pwt-datepicker-input-element" field="<?=$field['key']?>" type="text" name="<?=esc_attr($field['name']) ?>" style="font-size:<?=$field['font_size'] ?>px;" />
 		<?php
+		}
 	}
 	
 		
